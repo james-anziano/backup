@@ -36,23 +36,23 @@ for backup in $backup_dir/*.tar.gz; do
     fi
 done
 
-get_subarray_by_size () {
+get_random_sublist_by_size () {
     target_size=$1
     shift
-    input_array=("$@")
+    input_list=("$@")
     output_list=()
 
-    if (( ${#input_array[@]} < $target_size )) ; then
-        output_list=${input_array[*]}
+    if (( ${#input_list[@]} < $target_size )) ; then
+        output_list=${input_list[*]}
         return
     fi
-    for index in $(shuf --input-range=0-$(( ${#input_array[*]} - 1 )) -n ${target_size}); do
-        output_list+=(${input_array[$index]})
+    for index in $(shuf --input-range=0-$(( ${#input_list[*]} - 1 )) -n ${target_size}); do
+        output_list+=(${input_list[$index]})
     done
 }
 
 # Trim X_list down to the X that will actually be kept
-get_subarray_by_size $X ${X_list[@]}
+get_random_sublist_by_size $X ${X_list[@]}
 
 for backup in ${X_list[@]}; do
     # Determine if $backup in $output_list
@@ -69,7 +69,7 @@ for backup in ${X_list[@]}; do
 done
 
 # Trim Y_list down to the Y that will actually be kept
-get_subarray_by_size $Y ${Y_list[@]}
+get_random_sublist_by_size $Y ${Y_list[@]}
 
 for backup in ${Y_list[@]}; do
     # Determine if $backup in $output_list
