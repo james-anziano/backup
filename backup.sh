@@ -84,4 +84,3 @@ for backup in ${Y_list[@]}; do
         rm $backup
     fi
 done
-
