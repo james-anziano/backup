@@ -5,6 +5,7 @@
 #     # do backup stuff
 # else:
 #     # reverse backup stuff
+# Probably add more flags such as only-backup/only-trim, etc
 
 src_dir="$1"
 backup_dir="$2"
