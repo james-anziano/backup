@@ -90,7 +90,7 @@ if [[ $restore_flag == true ]]; then
     else
         echo "Latest backup is presumed to be:"
         echo ""
-        echo "$latest_backup."
+        echo "$latest_backup"
         echo ""
         read -r -p "Continue restoring from this backup? [y/N] " response
         if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
