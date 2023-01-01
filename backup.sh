@@ -111,6 +111,7 @@ if [[ $only_trim == false ]]; then
 fi
 
 if [[ $only_backup == false ]]; then
+
     delete_all_older_than="$(date -d '1 year ago' --iso-8601=date | tr - .)"
 
     keep_X_older_than="$(date -d '6 months ago' --iso-8601=date | tr - .)"
@@ -137,16 +138,17 @@ if [[ $only_backup == false ]]; then
     done
 
     determine_backups_to_keep () {
-        number_to_keep=$1
+
+        amount_to_keep=$1
         shift
         input_list=("$@")
         backups_to_keep=()
 
-        if (( ${#input_list[@]} < $number_to_keep )) ; then
+        if (( ${#input_list[@]} < $amount_to_keep )) ; then
             backups_to_keep=${input_list[*]}
             return
         fi
-        for index in $(shuf --input-range=0-$(( ${#input_list[*]} - 1 )) -n ${number_to_keep}); do
+        for index in $(shuf --input-range=0-$(( ${#input_list[*]} - 1 )) -n ${amount_to_keep}); do
             backups_to_keep+=(${input_list[$index]})
         done
     }
@@ -163,18 +165,16 @@ if [[ $only_backup == false ]]; then
                     present_in_backups_to_keep=true
                 fi
             done
-            # if $backup not in $backups_to_keep (our list to keep), delete it
+
             if [ $present_in_backups_to_keep = false ]; then
                 rm $backup
             fi
         done
     }
 
-    # Trim X_list down to the X that will actually be kept
     determine_backups_to_keep $X ${X_list[@]}
     delete_unselected_backups ${X_list[@]}
 
-    # Trim Y_list down to the Y that will actually be kept
     determine_backups_to_keep $Y ${Y_list[@]}
     delete_unselected_backups ${Y_list[@]}
 fi
