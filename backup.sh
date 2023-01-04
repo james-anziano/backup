@@ -5,7 +5,7 @@ cat << EOF
 
     Usage: $0 SRC_DIR BACKUP_DIR [OPTIONS]
 
-    Creates a tarball of SRC_DIR and saves it in BACKUP_DIR with today's date.
+Creates a tarball of SRC_DIR and saves it in BACKUP_DIR with today's date.
 
     -h,  --help                 Display help.
 
