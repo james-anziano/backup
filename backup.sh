@@ -103,7 +103,7 @@ if [[ $restore_flag == true ]]; then
             sudo tar -xvf "$latest_backup" -C "$src_dir"
         else
             echo "Cancelling restore. If you would like to manually restore a backup of your choosing, you may do so with the following command:"
-            echo "sudo tar -xvf \"BACKUP_DIR/backup.tar.gz\" -C \"SRC_DIR\""
+            echo "sudo tar -xvf \"$backup_dir/your_backup_here.tar.gz\" -C \"$src_dir\""
         fi
     fi
 
