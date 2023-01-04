@@ -24,11 +24,6 @@ restore_flag=false
 only_backup=false
 only_trim=false
 
-src_dir="$1"
-backup_dir="$2"
-
-options=$(getopt -l "help,restore,only-backup,only-trim" -o "h" -- "$@")
-
 args=()
 
 while [ "$1" != "" ]; do
