@@ -43,6 +43,12 @@ while [ "$1" != "" ]; do
             only_trim=true
             ;;
         --|*)
+            if [[ "$1" =~ ^- ]]; then
+                echo "Unrecognized argument: $1"
+                exit 1
+            else
+                positional_args+=("$1")
+            fi
             ;;
     esac
     shift
