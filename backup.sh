@@ -29,8 +29,11 @@ backup_dir="$2"
 
 options=$(getopt -l "help,restore,only-backup,only-trim" -o "h" -- "$@")
 
-while true; do
-    case "$3" in
+args=()
+
+while [ "$1" != "" ]; do
+    args+=("$1")
+    case "$1" in
         -h|--help)
             usage
             exit 0
@@ -45,11 +48,13 @@ while true; do
             only_trim=true
             ;;
         --|*)
-            break
             ;;
     esac
     shift
 done
+
+src_dir=${args[0]}
+backup_dir=${args[1]}
 
 if [[ -z $src_dir ]]; then
     echo "ERROR: SRC_DIR must be provided as the first argument."
