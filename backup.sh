@@ -77,7 +77,7 @@ fi
 if [[ $restore_flag == true ]]; then
 
     latest_backup="None"
-    latest_backup_date='1970.01.01.tar.gz'
+    latest_backup_date='1970-01-01.tar.gz'
     for backup in "$backup_dir"/*.tar.gz; do
         backup_date=$(basename $backup)
         if [[ $backup_date > $latest_backup_date ]]; then
@@ -89,7 +89,7 @@ if [[ $restore_flag == true ]]; then
     # If there are no .tar.gz in $backup_dir, the for loop above will iterate once with
     # $backup = $backup_dir/*.tar.gz because it doesn't
     # expand when it doesn't match any values. So explicitly check for that here,
-    # since that is a sign there were no .tat.gz files (and subsequently no backups)
+    # since that is a sign there were no .tar.gz files (and subsequently no backups)
     if [[ $latest_backup == "None" || $latest_backup == "$backup_dir/*.tar.gz" ]]; then
         echo "No backups found in BACKUP_DIR. Cannot restore."
         exit 1
@@ -112,18 +112,18 @@ if [[ $restore_flag == true ]]; then
 fi
 
 if [[ $only_trim == false ]]; then
-    filename="$(date --iso-8601=date | tr - .).tar.gz"
+    filename="$(date --iso-8601=date).tar.gz"
     sudo tar -C "$src_dir" -cvf "$backup_dir/$filename" .
 fi
 
 if [[ $only_backup == false ]]; then
 
-    delete_all_older_than="$(date -d '1 year ago' --iso-8601=date | tr - .)"
+    delete_all_older_than="$(date -d '1 year ago' --iso-8601=date)"
 
-    keep_X_older_than="$(date -d '6 months ago' --iso-8601=date | tr - .)"
+    keep_X_older_than="$(date -d '6 months ago' --iso-8601=date)"
     X=3
 
-    keep_Y_older_than="$(date -d '1 month ago' --iso-8601=date | tr - .)"
+    keep_Y_older_than="$(date -d '1 month ago' --iso-8601=date)"
     Y=5
 
     # These are the lists of *all* backups that fall within their date range.
